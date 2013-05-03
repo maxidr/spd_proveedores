@@ -1,0 +1,37 @@
+<h2>Nuevo proveedor</h2>
+
+<%# <%= labelled_form_for @provider #%>
+
+<form action="/providers" method="post">
+  <div class="box tabular">
+    <div id="all_attributes">
+      <p>
+        <label>Usuario</label>
+        <select name="user_id" style="width:350px;" data-placeholder="Selecione un usuario" class="select2">
+          <% @users.each do |user| %>
+            <option value="<%= user.id %>"><%= user.name %></option>
+          <% end %>
+        </select>
+      </p>
+      
+      <p>
+        <label>Servicios brindados</label>
+        <select style="width:450px;" data-placeholder="Seleccionar los servicios" multiple class="select2" name="services_ids[]">
+          <% @provider_categories.each do |category| %>
+            <option value="<%= category.id %>"><%= category.service %> | <%= category.mode %></option>
+          <% end %>
+        </select>
+      </p>
+
+    </div> 
+  </div>
+  <input name="commit" type="submit" value="Dar de alta">
+</form>
+
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'select2.css', plugin: :spd_proveedores %>
+  <%= javascript_include_tag 'select2.min.js', plugin: :spd_proveedores %>
+  <%= stylesheet_link_tag 'spd_proveedores_new', plugin: :spd_proveedores %>
+  <%= javascript_include_tag 'spd_proveedores_new', plugin: :spd_proveedores %>
+<% end %>

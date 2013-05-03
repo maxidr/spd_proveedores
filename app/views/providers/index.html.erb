@@ -1,0 +1,38 @@
+<div class="contextual">
+  <%= link_to 'Nuevo proveedor', new_provider_path, class: 'icon icon-add' %>
+</div>
+
+<h2>Proveedores</h2>
+
+<% if @providers.empty? %>
+  <p class="without_provider">Aun no hay proveedores, <%= link_to 'crear un nuevo proveedor', new_provider_path %></p>
+<% else %>
+
+  <div class="autoscroll">
+    <table class="list">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Categorías</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @providers.each do |provider| %>
+          <tr>
+            <td><%= provider.user.name %></td>
+            <td><%= category_list_resume(provider.categories) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+<% end %>
+
+<style>
+  p.without_provider { 
+    font-size: 20px;
+    text-align: center;
+    color: #888;
+  }
+</style>
