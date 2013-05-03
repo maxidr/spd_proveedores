@@ -28,6 +28,9 @@ class ProvidersController < ApplicationController
   end
 
   def update
-
+    @provider = Provider.find(params[:id])
+    @provider.update_attributes(params[:provider])
+    flash[:notice] = 'Proveedor actualizado'
+    redirect_to :providers
   end
 end

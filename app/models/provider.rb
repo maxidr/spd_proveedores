@@ -10,4 +10,6 @@ class Provider < ActiveRecord::Base
   validates_uniqueness_of :user_id
   validates_presence_of :categories
 
+  delegate :name, to: :user
+
 end
