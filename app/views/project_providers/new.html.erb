@@ -1,0 +1,85 @@
+<h2>Suscribirse como proveedor</h2>
+
+<h3>Servicios disponibles</h3>
+
+<div class="autoscroll">
+  <table class="list">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Servicio</th>
+        <th>Modalidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% ProviderCategory.all.each do |category| %>
+        <tr class="category_<%= category.id %>">
+          <td><a href="#" data-category-id="<%= category.id %>" class="category_selection icon icon-add" >añadir</a></td>
+          <td><%= category.service %></td>
+          <td><%= category.mode %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<h3>Servicios a ofrecer</h3>
+
+<%= form_for :project_providers, :method => :post, :url => create_project_provider_path(@project) do |f| %>
+  <div class="autoscroll">
+    <table class="list selected">
+      <thead>
+        <tr>
+          <th>Servicio</th>
+          <th>Modalidad</th>
+          <th>Detalle del costo</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <input type="submit">Guardar</input>
+<% end %>
+
+<script>
+  
+  var categories = {
+    <% ProviderCategory.all.each do |category| %>
+      <%= category.id %>: { id: <%= category.id %>, service: '<%= category.service %>', mode: '<%= category.mode %>' },
+    <% end %>  
+  };
+
+  $(document).ready(function(){
+    $('.category_selection').on('click', function(event){
+      //category_id = event.currentTarget.value;
+      category_id = $(event.currentTarget).data('category-id');
+      category_row = $('tr.category_' + category_id);
+      category_row.find('input').prop('checked', false);
+      category_row.hide();
+
+      category = categories[category_id];
+      template = "<tr>" +
+        "<td>" + category.service + "</td>" +
+        "<td>" + category.mode    + "</td>" +
+        "<td>" +
+          "<input type='input' name=\"categories[][price_detail]\" id='category_" + category.id + "_price_detail'>" +
+          "<input type='hidden' name='categories[][id]' value=" + category.id + ">" +
+        "</td>" +
+        "<td><a href='#' class='icon icon-del del-category' data-category-id='" + category.id + "'>Quitar</a></td>" + 
+        "</tr>";
+
+      $('table.selected tbody').append(template);
+      $('table.selected tbody #category_' + category.id + '_price_detail').focus();
+    });
+
+    $('.del-category').live('click', function(event){
+      event.preventDefault();
+      var del_link = $(event.currentTarget);
+      var category_id = del_link.data('category-id');
+      $('tr.category_' + category_id).show();
+      del_link.parents('tr').empty();
+    });
+  });
+</script>

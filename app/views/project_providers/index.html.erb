@@ -1,0 +1,39 @@
+<% if ProviderHelper.new.can_subscribe_to? @project %>
+  <div class="contextual">
+    <%= link_to 'Suscribirse como proveedor', new_project_provider_path(@project), class: 'icon icon-add' %>
+  </div>
+<% end %>
+
+<h2>Proveedores del proyecto</h2>
+
+<% if @project_providers.empty? %>
+  Aun no hay proveedores para le proyecto
+<% else %>
+  
+  <div class="autoscroll">
+    <table class="list">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Categorías</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @project_providers.each do |project_provider| %>
+          <tr>
+            <td><%= project_provider.provider_name %></td>
+            <td>
+              <% project_provider.categories.each do |category| %>
+                <%== category.service + "<br/>" + category.mode %>
+              <% end %>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+<% end %>
+
