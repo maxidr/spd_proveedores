@@ -1,0 +1,2 @@
+module ProjectRequiredCategoriesHelper
+end

@@ -5,11 +5,15 @@ class ProjectProvidersController < ApplicationController
 
   def index
     @project = Project.find(params[:project_id])
-    @project_providers = ProjectProvider.for_project(@project)      
+    @project_providers = ProjectProvider.for_project(@project)
+    project_required_category = ProjectRequiredCategory.for_project(@project)
+    @categories = project_required_category.nil? ? [] :  project_required_category.categories
   end
 
   def new
-    @project = Project.find(params[:project_id])    
+    @project = Project.find(params[:project_id])
+    project_required_categories = ProjectRequiredCategory.for_project(@project)
+    @required_categories = project_required_categories.nil? ? [] : project_required_categories.categories
   end
 
   def create

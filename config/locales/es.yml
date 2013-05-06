@@ -1,0 +1,6 @@
+# English strings go here for Rails i18n
+en:
+  my_label: "My label"
+  label_providers: 'Proveedores'
+  permission_list_providers: 'Ver proveedores'
+  permission_edit_required_services: 'Editar los servicios requeridos'

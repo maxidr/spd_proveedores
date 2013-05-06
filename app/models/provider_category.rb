@@ -1,10 +1,11 @@
 # encoding: utf-8
 # Contiene
 #
-# + Servicio      [service]
-# + Item          [item]
-# + Modalidad     [mode]
-# + Descripción   [description]
+# + Servicio            [service]
+# + Item                [item]
+# + Modalidad           [mode]
+# + Descripción         [description]
+# + Unidad de medidad   [measurament_unit]
 #
 # Ejemplo:
 # 

@@ -11,7 +11,7 @@ class ProviderActions
     project_provider = ProjectProvider.new project: project, provider: provider
     categories = params[:categories]
     categories.each do |category|  
-      project_provider.categories.build(provider_category: ProviderCategory.find(category[:id]))
+      project_provider.categories.build(provider_category: ProviderCategory.find(category[:id]), cost_details: category[:cost_details])
     end
     saved = project_provider.save
     { valid: saved, model: project_provider }

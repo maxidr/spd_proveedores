@@ -18,4 +18,8 @@ class ProviderHelper
   def already_subscribed?(project)
     ProjectProvider.by_project_and_provider(project, provider) != nil
   end
+
+  def can_edit_required_services?(project)
+    user.allowed_to?(:edit_required_services, project)
+  end
 end

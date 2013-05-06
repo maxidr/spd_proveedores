@@ -9,14 +9,18 @@
         <th></th>
         <th>Servicio</th>
         <th>Modalidad</th>
+        <th>Descripción</th>
+        <th>Unidad de medida</th>
       </tr>
     </thead>
     <tbody>
-      <% ProviderCategory.all.each do |category| %>
+      <% @required_categories.each do |category| %>
         <tr class="category_<%= category.id %>">
           <td><a href="#" data-category-id="<%= category.id %>" class="category_selection icon icon-add" >añadir</a></td>
           <td><%= category.service %></td>
           <td><%= category.mode %></td>
+          <td><%= category.description %></td>
+          <td><%= category.measurament_unit %></td>
         </tr>
       <% end %>
     </tbody>
@@ -33,6 +37,7 @@
           <th>Servicio</th>
           <th>Modalidad</th>
           <th>Detalle del costo</th>
+          <th>Unidad de medidad</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -40,14 +45,15 @@
       </tbody>
     </table>
   </div>
-  <input type="submit">Guardar</input>
+  <input type="submit" value="Guardar">
 <% end %>
 
 <script>
   
   var categories = {
     <% ProviderCategory.all.each do |category| %>
-      <%= category.id %>: { id: <%= category.id %>, service: '<%= category.service %>', mode: '<%= category.mode %>' },
+      <%= category.id %>: { id: <%= category.id %>, service: '<%= category.service %>', 
+        mode: '<%= category.mode %>', measurament_unit: '<%= category.measurament_unit %>' },
     <% end %>  
   };
 
@@ -61,10 +67,11 @@
 
       category = categories[category_id];
       template = "<tr>" +
-        "<td>" + category.service + "</td>" +
-        "<td>" + category.mode    + "</td>" +
+        "<td>" + category.service          + "</td>" +
+        "<td>" + category.mode             + "</td>" +
+        "<td>" + category.measurament_unit + "</td>" +
         "<td>" +
-          "<input type='input' name=\"categories[][price_detail]\" id='category_" + category.id + "_price_detail'>" +
+          "<input type='input' name=\"categories[][cost_details]\" id='category_" + category.id + "_cost_detail' class='cost_detail'>" +
           "<input type='hidden' name='categories[][id]' value=" + category.id + ">" +
         "</td>" +
         "<td><a href='#' class='icon icon-del del-category' data-category-id='" + category.id + "'>Quitar</a></td>" + 

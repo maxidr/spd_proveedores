@@ -6,8 +6,11 @@ Redmine::Plugin.register :spd_proveedores do
   url 'http://example.com/path/to/plugin'
   author_url 'http://example.com/about'
 
-  permission :spd_proveedores,  { :project_providers => :index }, public: true
+  #permission :spd_proveedores,  { :project_providers => :index }, public: true
   menu :project_menu, :providers, { :controller => 'project_providers', :action => 'index' }, caption: 'Proveedores', param: :project_id
 
-  
+  project_module :proveedores do 
+    permission :list_providers, { :project_providers => :index }
+    permission :edit_required_services, { :project_providers => :index }
+  end
 end

@@ -1,0 +1,11 @@
+<h3>Servicios solicitados</h3>
+
+<p>
+  <% if @categories.empty? %>
+    <%= link_to 'Solicitar requerimiento para proveedores', new_required_category_path(@project), class: 'icon icon-add' %>
+  <% else %>
+    <%= link_to 'Añadir mas requerimientos', edit_required_category_path(@project), class: 'icon icon-edit' %>
+  <% end %>
+</p>
+
+<%= render partial: 'project_required_categories/categories_list', locals: { categories: @categories } %>

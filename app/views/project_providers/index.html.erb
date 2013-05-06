@@ -4,10 +4,21 @@
   </div>
 <% end %>
 
-<h2>Proveedores del proyecto</h2>
+<h2>Proveedores</h2>
 
+<% if ProviderHelper.new.can_edit_required_services? @project %>
+  <%= render partial: 'edit_required_services' %> 
+<% end %>
+
+
+<h3>Proveedores suscriptos</h3>
 <% if @project_providers.empty? %>
-  Aun no hay proveedores para le proyecto
+  
+  Aun no hay proveedores para el proyecto
+  <% if ProviderHelper.new.can_subscribe_to? @project %>
+    <p><%= link_to 'Suscribirse como proveedor', new_project_provider_path(@project), class: 'icon icon-add' %></p>
+  <% end %>
+
 <% else %>
   
   <div class="autoscroll">
@@ -16,20 +27,25 @@
         <tr>
           <th>Usuario</th>
           <th>Categorías</th>
-          <th>&nbsp;</th>
+          <th>Detalles del costo</th>
         </tr>
       </thead>
       <tbody>
-        <% @project_providers.each do |project_provider| %>
-          <tr>
-            <td><%= project_provider.provider_name %></td>
-            <td>
-              <% project_provider.categories.each do |category| %>
-                <%== category.service + "<br/>" + category.mode %>
+        <% @project_providers.each_with_index do |project_provider, index| %>
+          <script> console.log("index: <%= index %>") </script>
+          <% user_indicated = false %>
+
+          <% project_provider.categories.each do |category| %>            
+            <tr>
+              <% unless user_indicated %>
+                <td rowspan="<%= project_provider.categories.count %>"><%= project_provider.provider_name %></td>
+                <% user_indicated = true %>
               <% end %>
-            </td>
-            <td>&nbsp;</td>
-          </tr>
+              <td><%= category.service + ": " + category.mode %></td>
+              <td><%= category.cost_details %></td>
+            </tr>
+
+          <% end %>
         <% end %>
       </tbody>
     </table>

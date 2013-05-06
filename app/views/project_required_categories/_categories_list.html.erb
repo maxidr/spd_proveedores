@@ -1,0 +1,18 @@
+<div class="autoscroll">
+  <table class="list">
+    <thead>
+      <tr>
+        <th>Servicio</th>
+        <th>Modalidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% categories.each do |category| %>
+        <tr>
+          <td><%= category.service %></td>
+          <td><%= category.mode %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

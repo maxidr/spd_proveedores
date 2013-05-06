@@ -1,0 +1,23 @@
+<h2>Requerir servicios para el proyecto</h2>
+
+<h3>Servicios ya solicitados</h3>
+<%= render partial: 'categories_list', locals: { categories: @project_requirement.categories } %>
+
+<h3>Solicitar mas servicios</h3>
+<%= form_for @project_requirement, url: edit_required_category_path(@project), method: :put do |f| %>
+  
+  <select style="width:450px;" data-placeholder="Seleccionar mas servicios" multiple class="select2" name="categories_ids[]">
+    <% (ProviderCategory.all - @project_requirement.categories).each do |category| %>
+      <option value="<%= category.id %>"><%= category.service %> | <%= category.mode %></option>
+    <% end %>
+
+  </select>
+
+  <input name="commit" type="submit" value="Guardar">
+<% end %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'select2.css', plugin: :spd_proveedores %>
+  <%= javascript_include_tag 'select2.min.js', plugin: :spd_proveedores %>
+  <%= javascript_include_tag 'improve_select', plugin: :spd_proveedores %>
+<% end %>

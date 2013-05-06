@@ -1,0 +1,18 @@
+<h2>Requerir servicios para el proyecto</h2>
+
+<%= form_for ProjectRequiredCategory.new do |f| %>
+  <select style="width:450px;" data-placeholder="Seleccionar los servicios" multiple class="select2" name="categories_ids[]">
+    <% ProviderCategory.all.each do |category| %>
+      <option value="<%= category.id %>"><%= category.service %> | <%= category.mode %></option>
+    <% end %>
+  </select>
+
+  <input name="commit" type="submit" value="Guardar">
+<% end %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'select2.css', plugin: :spd_proveedores %>
+  <%= javascript_include_tag 'select2.min.js', plugin: :spd_proveedores %>
+
+  <%= javascript_include_tag 'improve_select', plugin: :spd_proveedores %>
+<% end %>
