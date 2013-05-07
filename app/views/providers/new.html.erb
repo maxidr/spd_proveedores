@@ -2,7 +2,7 @@
 
 <%# <%= labelled_form_for @provider #%>
 
-<form action="providers" method="post">
+<%= form_for :providers, url: providers_path, method: :post do |f|  %>
   <div class="box tabular">
     <div id="all_attributes">
       <p>
@@ -26,8 +26,7 @@
     </div> 
   </div>
   <input name="commit" type="submit" value="Dar de alta">
-</form>
-
+<% end %>
 
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'select2.css', plugin: :spd_proveedores %>
