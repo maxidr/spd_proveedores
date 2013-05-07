@@ -11,16 +11,10 @@ class ProjectProvidersController < ApplicationController
   end
 
   def new
-    @project = Project.find(params[:project_id])
-    project_required_categories = ProjectRequiredCategory.for_project(@project)
-    if project_required_categories.nil?
-      @required_categories = []
-    else
-      @required_categories = project_required_categories.categories & categories_offered_of_provider
-    end
+    load_required_categories
   end
 
-  
+    
   def create
     #project = Project.find(params[:project_id])
     provider = Provider.by_user(User.current)
@@ -31,8 +25,9 @@ class ProjectProvidersController < ApplicationController
       redirect_to(controller: :project_providers, action: :index, params: { project_id: project.id })
     else
       # TODO Implementar esto
-      flash[:error] = result[:errors]
-      render :action => :new
+      @project_provider = result[:model]
+      load_required_categories
+      render action: :new
     end
   end
 
@@ -52,6 +47,16 @@ class ProjectProvidersController < ApplicationController
 
   def provider
     @provider ||= Provider.by_user(User.current)
+  end
+
+  def load_required_categories    
+    project_required_categories = ProjectRequiredCategory.for_project(project)
+    if project_required_categories.nil?
+      @required_categories = []
+    else
+      @required_categories = project_required_categories.categories & categories_offered_of_provider
+    end
+
   end
 
 end

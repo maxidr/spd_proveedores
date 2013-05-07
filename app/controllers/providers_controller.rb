@@ -5,6 +5,12 @@ class ProvidersController < ApplicationController
 
   def index
     @providers = Provider.all
+    @category_count = ProviderCategory.count
+    limit = per_page_option
+    @category_pages = Paginator.new self, @category_count, limit, params['page']
+    offset = @category_pages.current.offset
+
+    @categories = ProviderCategory.all(offset: offset, limit: limit)
   end
 
   def new

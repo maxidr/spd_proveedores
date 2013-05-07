@@ -29,7 +29,11 @@
 
 <h3>Servicios a ofrecer</h3>
 
-<%= form_for :project_providers, :method => :post, :url => create_project_provider_path(@project) do |f| %>
+<%= form_for :project_provider, :method => :post, 
+  :url => create_project_provider_path(@project), html: { class: 'project_provider_form' } do |f| %>
+  
+  <%= error_messages_for 'project_provider' %>
+
   <div class="autoscroll">
     <table class="list selected">
       <thead>
@@ -69,24 +73,25 @@
 
     function without_service_selected(call_to_action){
       if( $('table.selected > tbody td').length == 0 ){
-        console.log("sin valores");
         call_to_action();
       }
     }
 
     disable_submit_button();
 
-    $('form').on('submit', function(event){
-      $(".cost_detail").each(function(){
-        value = this.value();
-        if ( value === null || value.trim() === '' ) {
-          console.log("Error!");
-          // TODO: Mejorar el mensaje de error
-          event.preventDefault();
-          alert("Debe indicar un detalle de costo para cada uno de los servicios que selecciona");
-        }
-      });
-    });
+    //$('.project_provider_form').submit(function(){
+    //  without_error = true;
+    //  $(".cost_detail").each(function(){
+    //    value = $(this).val();
+    //    if ( value === null || value.trim() === '' ) {
+    //      // TODO: Mejorar el mensaje de error
+    //      alert("Debe indicar un detalle de costo para cada uno de los servicios que selecciona");
+    //      without_error = false;
+    //      return false;
+    //    }
+    //  });
+    //  return without_error;
+    //});
 
     $('.category_selection').on('click', function(event){
       //category_id = event.currentTarget.value;

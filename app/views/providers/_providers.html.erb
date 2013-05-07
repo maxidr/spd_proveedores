@@ -1,0 +1,36 @@
+<% if @providers.empty? %>
+  <p class="without_provider">Aun no hay proveedores, <%= link_to 'crear un nuevo proveedor', new_provider_path %></p>
+<% else %>
+
+  <div class="autoscroll">
+    <table class="list">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Categorías</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @providers.each do |provider| %>
+          <tr>
+            <td><%= provider.user.name %></td>
+            <td><%= category_list_resume(provider.categories) %></td>
+            <td class='buttons'><%= link_to 'editar', edit_provider_path(provider.id), class: 'icon icon-edit' %></td> 
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+<% end %>
+
+<%= link_to 'Nuevo proveedor', new_provider_path, class: 'icon icon-add' %>
+
+<style>
+  p.without_provider { 
+    font-size: 20px;
+    text-align: center;
+    color: #888;
+  }
+</style>

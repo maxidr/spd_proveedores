@@ -1,6 +1,14 @@
 # English strings go here for Rails i18n
-en:
+es:
   my_label: "My label"
   label_providers: 'Proveedores'
   permission_list_providers: 'Ver proveedores'
   permission_edit_required_services: 'Editar los servicios requeridos'
+  spd_providers:
+    settings:
+      providers: Proveedores
+      categories: Categorías de servicios
+  field_service: Servicio
+  field_item: Item
+  field_mode: Modalidad
+  field_measurament_unit: Unidad de medida

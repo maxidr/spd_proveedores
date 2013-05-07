@@ -1,0 +1,15 @@
+<div class="box tabular">
+  <%= labelled_form_for @category do |f| %>
+    <%= error_messages_for 'category' %> 
+    <p><%= f.text_field :service, required: true %></p>
+    <p><%= f.text_field :item %></p>
+    <p><%= f.text_field :mode, required: true %></p>
+    <p><%= f.text_area :description, cols: 80, rows: 4 %></p>
+    <p><%= f.text_area :measurament_unit, cols: 80, rows: 4, required: true %></p>
+    <%= submit_tag l(:button_create) %>
+  <% end %>
+</div>
+
+<style>
+  #provider_category_service, #provider_category_mode, #provider_category_description, #provider_category_measurament_unit { width: 99% }    
+</style>

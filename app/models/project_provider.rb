@@ -11,6 +11,8 @@ class ProjectProvider < ActiveRecord::Base
   # Categorías de servicios que brinda un proveedor para un project
   has_many :categories, class_name: 'ProjectProviderCategory' 
 
+  validates_uniqueness_of :provider_id, scope: :project_id
+
   scope :for_project, lambda { |project| where(project_id: project.id) }
 
   delegate :name, to: :provider, prefix: true

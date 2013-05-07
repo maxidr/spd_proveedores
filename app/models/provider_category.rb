@@ -21,4 +21,7 @@
 class ProviderCategory < ActiveRecord::Base
   unloadable
 
+  validates_presence_of :service, :mode, :measurament_unit
+  validates_uniqueness_of :mode, scope: :service
+
 end

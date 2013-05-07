@@ -9,6 +9,13 @@ get 'providers/:id/edit', to: 'providers#edit', as: 'edit_provider'
 post 'providers', to: 'providers#create'
 put 'providers/:id', to: 'providers#update'
 
+get 'provider_categories', to: 'provider_categories#index', as: 'provider_categories'
+get 'provider_categories/:id', to: 'provider_categories#show', as: 'provider_category'
+get 'provider_categories/new', to: 'provider_categories#new', as: 'new_provider_category'
+post 'provider_categories', to: 'provider_categories#create', as: 'create_provider_category'
+put 'provider_categories/:id', to: 'provider_categories#update'
+get 'provider_categories/:id/edit', to: 'provider_categories#edit', as: 'edit_provider_category'
+
 get 'project_providers',                  to: 'project_providers#index'
 get 'project_providers/:project_id/new',  to: 'project_providers#new',    as: 'new_project_provider'
 post 'project_providers/:project_id',     to: 'project_providers#create', as: 'create_project_provider'
