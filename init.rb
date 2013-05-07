@@ -5,7 +5,7 @@ Redmine::Plugin.register :spd_proveedores do
   name 'Spd Proveedores plugin'
   author 'Maximiliano Dello Russo'
   description 'Gestión de proveedores para la plataforma SPD'
-  version '0.1.0'
+  version '0.1.1'
   url 'https://github.com/maxidr/spd_proveedores'
   author_url 'https://coderwall.com/maxidr'
 
