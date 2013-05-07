@@ -1,6 +1,8 @@
 class ProvidersController < ApplicationController
   unloadable
 
+  before_filter :only_admin
+
   def index
     @providers = Provider.all
   end
@@ -32,5 +34,11 @@ class ProvidersController < ApplicationController
     @provider.update_attributes(params[:provider])
     flash[:notice] = 'Proveedor actualizado'
     redirect_to :providers
+  end
+
+  private
+
+  def only_admin
+    render_403 unless User.current.admin?
   end
 end
