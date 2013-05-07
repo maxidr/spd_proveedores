@@ -10,6 +10,7 @@
   <%= render partial: 'edit_required_services' %> 
 <% end %>
 
+<%= render partial: 'project_required_categories/categories_list', locals: { categories: @categories } %>
 
 <h3>Proveedores suscriptos</h3>
 <% if @project_providers.empty? %>

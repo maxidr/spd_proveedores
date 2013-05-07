@@ -9,4 +9,6 @@ class ProjectProviderCategory < ActiveRecord::Base
   belongs_to :provider_category
 
   delegate :service, :item, :mode, :description, to: :provider_category
+
+  validates_presence_of :cost_details
 end

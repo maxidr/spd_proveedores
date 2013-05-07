@@ -24,4 +24,21 @@ class ProjectRequiredCategoriesController < ApplicationController
     @project = Project.find(params[:project_id])
     @project_requirement = ProjectRequiredCategory.for_project(@project)
   end
+
+  def update
+    @project = Project.find(params[:project_id])
+    @project_requirement = ProjectRequiredCategory.for_project(@project)
+    params[:categories_ids].each do |category_id|
+      @project_requirement.required_categories.build(provider_category: ProviderCategory.find(category_id), user: User.current)
+    end
+
+    if project_requirement.save
+      flash[:notice] = 'Se actualizaron los requerimientos para el proyecto'
+      redirect_to project_providers_path(project_id: project.id)
+    else
+      flash[:error] = project_requirement.full_messages
+      redirect_to(:action => :edit)
+    end
+
+  end
 end

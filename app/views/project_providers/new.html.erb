@@ -36,8 +36,8 @@
         <tr>
           <th>Servicio</th>
           <th>Modalidad</th>
-          <th>Detalle del costo</th>
           <th>Unidad de medidad</th>
+          <th>Detalle del costo</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -45,7 +45,7 @@
       </tbody>
     </table>
   </div>
-  <input type="submit" value="Guardar">
+  <input type="submit" value="Guardar" id='send_button'>
 <% end %>
 
 <script>
@@ -58,6 +58,36 @@
   };
 
   $(document).ready(function(){
+
+    function disable_submit_button(){
+      $('#send_button').attr('disabled', 'disabled');
+    }
+
+    function enable_submit_button(){
+      $('#send_button').removeAttr('disabled');
+    }
+
+    function without_service_selected(call_to_action){
+      if( $('table.selected > tbody td').length == 0 ){
+        console.log("sin valores");
+        call_to_action();
+      }
+    }
+
+    disable_submit_button();
+
+    $('form').on('submit', function(event){
+      $(".cost_detail").each(function(){
+        value = this.value();
+        if ( value === null || value.trim() === '' ) {
+          console.log("Error!");
+          // TODO: Mejorar el mensaje de error
+          event.preventDefault();
+          alert("Debe indicar un detalle de costo para cada uno de los servicios que selecciona");
+        }
+      });
+    });
+
     $('.category_selection').on('click', function(event){
       //category_id = event.currentTarget.value;
       category_id = $(event.currentTarget).data('category-id');
@@ -71,14 +101,15 @@
         "<td>" + category.mode             + "</td>" +
         "<td>" + category.measurament_unit + "</td>" +
         "<td>" +
-          "<input type='input' name=\"categories[][cost_details]\" id='category_" + category.id + "_cost_detail' class='cost_detail'>" +
+          "<textarea name=\"categories[][cost_details]\" id='category_" + category.id + "_cost_detail' class='cost_detail'></textarea>" +
           "<input type='hidden' name='categories[][id]' value=" + category.id + ">" +
         "</td>" +
         "<td><a href='#' class='icon icon-del del-category' data-category-id='" + category.id + "'>Quitar</a></td>" + 
         "</tr>";
 
       $('table.selected tbody').append(template);
-      $('table.selected tbody #category_' + category.id + '_price_detail').focus();
+      $('table.selected tbody #category_' + category.id + '_cost_detail').focus();
+      enable_submit_button();
     });
 
     $('.del-category').live('click', function(event){
@@ -87,6 +118,7 @@
       var category_id = del_link.data('category-id');
       $('tr.category_' + category_id).show();
       del_link.parents('tr').empty();
+      without_service_selected(disable_submit_button);
     });
   });
 </script>

@@ -17,3 +17,4 @@ get 'project_required_categories/:project_id',      to: 'project_required_catego
 get 'project_required_categories/:project_id/new',  to: 'project_required_categories#new',    as: 'new_required_category'
 get 'project_required_categories/:project_id/edit', to: 'project_required_categories#edit',   as: 'edit_required_category'
 post 'project_required_categories/:project_id',     to: 'project_required_categories#create'
+put 'project_required_categories/:project_id',      to: 'project_required_categories#update'

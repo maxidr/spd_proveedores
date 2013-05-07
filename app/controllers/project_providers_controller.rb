@@ -13,9 +13,14 @@ class ProjectProvidersController < ApplicationController
   def new
     @project = Project.find(params[:project_id])
     project_required_categories = ProjectRequiredCategory.for_project(@project)
-    @required_categories = project_required_categories.nil? ? [] : project_required_categories.categories
+    if project_required_categories.nil?
+      @required_categories = []
+    else
+      @required_categories = project_required_categories.categories & categories_offered_of_provider
+    end
   end
 
+  
   def create
     #project = Project.find(params[:project_id])
     provider = Provider.by_user(User.current)
@@ -25,12 +30,17 @@ class ProjectProvidersController < ApplicationController
       flash[:notice] = 'Quedó suscripto al projecto como proveedor'
       redirect_to(controller: :project_providers, action: :index, params: { project_id: project.id })
     else
-      # No grabó la relación
-      puts "Error en suscripción"
+      # TODO Implementar esto
+      flash[:error] = result[:errors]
+      render :action => :new
     end
   end
 
   private
+  
+  def categories_offered_of_provider
+    Provider.by_user(User.current).categories
+  end
 
   def build_project_provider
     project_provider = ProjectProvider.new project: project, provider: provider

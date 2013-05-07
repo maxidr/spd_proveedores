@@ -10,7 +10,7 @@ Redmine::Plugin.register :spd_proveedores do
   menu :project_menu, :providers, { :controller => 'project_providers', :action => 'index' }, caption: 'Proveedores', param: :project_id
 
   project_module :proveedores do 
-    permission :list_providers, { :project_providers => :index }
+    permission :list_providers, { :project_providers => :index }, public: true
     permission :edit_required_services, { :project_providers => :index }
   end
 end
